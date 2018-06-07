@@ -1,14 +1,27 @@
 import React, { Component } from 'react';
-
+import axios from 'axios';
 import './NewPost.css';
 
 class NewPost extends Component {
     state = {
-        title: '',
-        content: '',
-        author: 'Max'
+        title: 'Story of my life',
+        content: `Basically I grew up in Jhansi; I love Jhansi. I did my graduation in Delhi (University of Delhi);
+        I'm not that fond of Delhi. I am currently working at CERN - not sure how I feel about it. I know I respect it 
+        very highly.`,
+        author: 'Dinika'
     }
+    postHandler = () => {
+        const post = {
+            title: this.state.title,
+            content: this.state.content,
+            author: this.state.author,
 
+        };
+        axios.post('https://jsonplaceholder.typicode.com/posts', post)
+            .then((response) => {
+                console.log(response);
+            });
+    }
     render () {
         return (
             <div className="NewPost">
@@ -22,7 +35,7 @@ class NewPost extends Component {
                     <option value="Max">Max</option>
                     <option value="Manu">Manu</option>
                 </select>
-                <button>Add Post</button>
+                <button onClick={this.postHandler}>Add Post</button>
             </div>
         );
     }
